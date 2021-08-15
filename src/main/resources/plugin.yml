@@ -1,0 +1,4 @@
+name: Datalibrary
+version: ${project.version}
+main: datalibrary.datalibrary
+api-version: 1.17

@@ -75,11 +75,26 @@ public class db {
         return null;
     }
 
-    public static boolean setstuff(String column_name, String table_name,  UUID uuid_of_player, String inserted_stuff) {
+    public static boolean setstring(String column_name, String table_name,  UUID uuid_of_player, String inserted_stuff) {
         try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
                 "UPDATE " + table_name + " SET " + column_name + " = ? WHERE uuid = ?"
         )) {
             stmt.setString(1, inserted_stuff);
+            stmt.setString(2, uuid_of_player.toString());
+            stmt.execute();
+            return true;
+        } catch (SQLException ee) {
+            log("&cDb update failed");
+            ee.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean setint(String column_name, String table_name,  UUID uuid_of_player, Integer inserted_stuff) {
+        try (Connection conn = conn(); PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE " + table_name + " SET " + column_name + " = ? WHERE uuid = ?"
+        )) {
+            stmt.setInt(1, inserted_stuff);
             stmt.setString(2, uuid_of_player.toString());
             stmt.execute();
             return true;
